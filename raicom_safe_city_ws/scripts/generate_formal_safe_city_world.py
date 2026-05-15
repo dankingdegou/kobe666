@@ -293,13 +293,13 @@ def task_models() -> str:
     {box_model("trash_label_plate", "0 0.58 0.05 0 0 0", "0.58 0.26 0.035", "0.92 0.92 0.88 1", False)}
     <model name="trash_bin_models">
       <static>true</static>
-      <pose>0 0.62 0.28 0 0 0</pose>
+      <pose>0 0.60 0.30 0 0 0</pose>
       <link name="link">
-        {simple_visual("trash_real_photo_base", "0 0 -0.255 0 0 0", "0.72 0.18 0.030", "0.16 0.18 0.17 1")}
-        {billboard_visual("kitchen_photo_billboard", "-0.15 0 0.09 0 0 0", 0.26, "kitchen_bin.jpg")}
-        {billboard_visual("recyclable_photo_billboard", "0.15 0 0.09 0 0 0", 0.26, "recyclable_bin.jpg")}
-        {billboard_visual("hazardous_photo_billboard", "-0.15 0 -0.19 0 0 0", 0.26, "hazardous_bin.jpg")}
-        {billboard_visual("other_photo_billboard", "0.15 0 -0.19 0 0 0", 0.26, "other_bin.jpg")}
+        {simple_visual("trash_real_photo_base", "0 0 -0.270 0 0 0", "0.72 0.18 0.030", "0.16 0.18 0.17 1")}
+        {billboard_visual("kitchen_photo_billboard", "-0.255 0 -0.04 0 0 0", 0.26, "kitchen_bin.jpg")}
+        {billboard_visual("recyclable_photo_billboard", "-0.085 0 -0.04 0 0 0", 0.26, "recyclable_bin.jpg")}
+        {billboard_visual("hazardous_photo_billboard", "0.085 0 -0.04 0 0 0", 0.26, "hazardous_bin.jpg")}
+        {billboard_visual("other_photo_billboard", "0.255 0 -0.04 0 0 0", 0.26, "other_bin.jpg")}
       </link>
     </model>
 
