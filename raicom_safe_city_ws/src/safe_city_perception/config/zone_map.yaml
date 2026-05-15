@@ -1,0 +1,42 @@
+zones:
+  trash_zone:
+    display_name: 垃圾桶巡检区
+    groups:
+      - trash_bin
+    allowed_marker_ids:
+      - 1
+      - 2
+      - 3
+      - 4
+    fallback_marker_ids:
+      - 1
+      - 2
+      - 3
+      - 4
+  people_zone:
+    display_name: 人群巡检区
+    groups:
+      - people
+    allowed_marker_ids:
+      - 5
+      - 6
+      - 7
+      - 12
+      - 13
+    fallback_marker_ids:
+      - 5
+      - 6
+  building_zone:
+    display_name: 楼宇巡检区
+    groups:
+      - building
+    allowed_marker_ids:
+      - 8
+      - 9
+      - 10
+      - 11
+    fallback_marker_ids:
+      - 8
+      - 9
+      - 10
+      - 11

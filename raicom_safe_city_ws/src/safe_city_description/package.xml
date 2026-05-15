@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>safe_city_description</name>
+  <version>0.0.1</version>
+  <description>Robot description package for the RAICOM safe city inspection robot.</description>
+  <maintainer email="team@example.com">RAICOM Team</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <exec_depend>xacro</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>joint_state_publisher_gui</exec_depend>
+  <exec_depend>rviz2</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

@@ -1,0 +1,25 @@
+mission:
+  ordered_zones:
+    - people_zone
+    - trash_zone
+    - building_zone
+  trigger_interval_sec: 4.0
+  report_timeout_sec: 2.5
+  zone_to_waypoint:
+    trash_zone: trash_zone
+    people_zone: people_zone
+    building_zone: building_zone
+  zone_pre_waypoints:
+    people_zone:
+      - left_lane_entry
+    trash_zone:
+      - left_top_curve
+    building_zone:
+      - right_top_curve
+      - right_crosswalk_upper
+      - right_crosswalk_lower
+      - right_bottom_curve
+  return_route:
+    - left_bottom_curve
+    - finish
+    - return_zone

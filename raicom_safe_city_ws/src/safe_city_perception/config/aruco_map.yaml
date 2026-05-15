@@ -1,0 +1,45 @@
+markers:
+  1:
+    group: trash_bin
+    label: kitchen
+    zh_name: 厨余垃圾桶
+  2:
+    group: trash_bin
+    label: recyclable
+    zh_name: 可回收物垃圾桶
+  3:
+    group: trash_bin
+    label: hazardous
+    zh_name: 有害垃圾桶
+  4:
+    group: trash_bin
+    label: other
+    zh_name: 其他垃圾桶
+  5:
+    group: people
+    label: medical_rescue
+    zh_name: 医疗救助人群
+  6:
+    group: people
+    label: normal_rescue
+    zh_name: 普通救助人群
+  7:
+    group: people
+    label: normal_rescue
+    zh_name: 普通救助人群
+  8:
+    group: building
+    label: collapse
+    zh_name: 坍塌楼宇
+  9:
+    group: building
+    label: fire
+    zh_name: 火灾楼宇
+  10:
+    group: building
+    label: toxic_gas
+    zh_name: 有毒气体楼宇
+  11:
+    group: building
+    label: power_failure
+    zh_name: 电力故障楼宇

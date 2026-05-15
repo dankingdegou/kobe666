@@ -1,0 +1,32 @@
+# ROS 2 / colcon generated files
+raicom_safe_city_ws/build/
+raicom_safe_city_ws/install/
+raicom_safe_city_ws/log/
+
+# Training and generated datasets
+raicom_safe_city_ws/runs/
+raicom_safe_city_ws/datasets/
+raicom_safe_city_ws/tmp_pdf_pages/
+
+# Local tools and Python environments
+tools/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Large downloaded base models are reproducible; keep the final competition model.
+raicom_safe_city_ws/yolo*.pt
+!raicom_safe_city_ws/models/safe_city_yolo.pt
+
+# Editor / OS noise
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+
+# Runtime artifacts
+*.log
+*.bag
+*.db3

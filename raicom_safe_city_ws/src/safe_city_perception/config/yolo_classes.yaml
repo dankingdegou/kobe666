@@ -1,0 +1,90 @@
+yolo:
+  # Default target for the trained model. Put best.pt here after training or
+  # override the model_path launch parameter.
+  model_path: models/safe_city_yolo.pt
+  confidence_threshold: 0.20
+  image_size: 640
+
+classes:
+  kitchen_bin:
+    id: 0
+    marker_id: 1
+    group: trash_bin
+    label: kitchen
+    zh_name: 厨余垃圾桶
+  recyclable_bin:
+    id: 1
+    marker_id: 2
+    group: trash_bin
+    label: recyclable
+    zh_name: 可回收物垃圾桶
+  hazardous_bin:
+    id: 2
+    marker_id: 3
+    group: trash_bin
+    label: hazardous
+    zh_name: 有害垃圾桶
+  other_bin:
+    id: 3
+    marker_id: 4
+    group: trash_bin
+    label: other
+    zh_name: 其他垃圾桶
+  collapse_building:
+    id: 4
+    marker_id: 8
+    group: building
+    label: collapse
+    zh_name: 坍塌楼宇
+  fire_building:
+    id: 5
+    marker_id: 9
+    group: building
+    label: fire
+    zh_name: 火灾楼宇
+  toxic_gas_building:
+    id: 6
+    marker_id: 10
+    group: building
+    label: toxic_gas
+    zh_name: 有毒气体楼宇
+  power_failure_building:
+    id: 7
+    marker_id: 11
+    group: building
+    label: power_failure
+    zh_name: 电力故障楼宇
+  medical_rescue_person:
+    id: 8
+    marker_id: 5
+    group: people
+    label: medical_rescue
+    zh_name: 医疗救助人群
+  normal_rescue_person:
+    id: 9
+    marker_id: 6
+    group: people
+    label: normal_rescue
+    zh_name: 普通救助人群
+
+source_images:
+  ../../../../平安城市/垃圾桶/IMG_1.jpg: kitchen_bin
+  ../../../../平安城市/垃圾桶/IMG_2.jpg: recyclable_bin
+  ../../../../平安城市/垃圾桶/IMG_3.jpg: hazardous_bin
+  ../../../../平安城市/垃圾桶/IMG_4.jpg: other_bin
+  ../../../../平安城市/楼宇/IMG_1.jpg: collapse_building
+  ../../../../平安城市/楼宇/IMG_2.jpg: fire_building
+  ../../../../平安城市/楼宇/IMG_3.jpg: toxic_gas_building
+  ../../../../平安城市/楼宇/IMG_4.jpg: power_failure_building
+  ../../../../平安城市/人偶/IMG_1.jpg: medical_rescue_person
+  ../../../../平安城市/人偶/IMG_2.jpg: medical_rescue_person
+  ../../../../平安城市/人偶/IMG_3.jpg: medical_rescue_person
+  ../../../../平安城市/人偶/IMG_4.jpg: medical_rescue_person
+  ../../../../平安城市/人偶/IMG_5.jpg: medical_rescue_person
+  ../../../../平安城市/人偶/IMG_6.jpg: medical_rescue_person
+  ../../../../平安城市/人偶/IMG_7.jpg: normal_rescue_person
+  ../../../../平安城市/人偶/IMG_8.jpg: normal_rescue_person
+  ../../../../平安城市/人偶/IMG_9.jpg: normal_rescue_person
+  ../../../../平安城市/人偶/IMG_10.jpg: normal_rescue_person
+  ../../../../平安城市/人偶/IMG_11.jpg: normal_rescue_person
+  ../../../../平安城市/人偶/IMG_12.jpg: normal_rescue_person
