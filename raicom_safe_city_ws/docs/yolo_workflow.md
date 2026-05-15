@@ -157,11 +157,13 @@ models/safe_city_yolo.pt
 本轮正式 10 类 YOLO 微调结果：
 
 ```text
-验证集图片: 30
-验证集实例: 772
-mAP50: 0.921
-mAP50-95: 0.811
+验证集图片: 160
+验证集实例: 572
+mAP50: 0.995
+mAP50-95: 0.989
 ```
+
+说明：当前 Gazebo world 已将早期彩色几何体目标升级为真实照片 billboard。`scripts/build_billboard_yolo_dataset.py` 会使用 Gazebo 纹理目录中的真实照片贴图合成训练数据，再通过 `train_gazebo_yolo_model.sh` 对 `models/safe_city_yolo.pt` 做短轮次适配，使 YOLO 更贴近当前仿真相机画面。
 
 ## 4. ROS 2 接入
 

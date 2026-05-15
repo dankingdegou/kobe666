@@ -236,6 +236,27 @@ def textured_plane(name: str, pose: str, size: str, texture: str) -> str:
     </model>"""
 
 
+def textured_visual(name: str, pose: str, size: str, texture: str) -> str:
+    return f"""
+        <visual name="{name}">
+          <pose>{pose}</pose>
+          <geometry><box><size>{size}</size></box></geometry>
+          <material>
+            <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
+            <pbr><metal><albedo_map>../materials/textures/{texture}</albedo_map></metal></pbr>
+          </material>
+        </visual>"""
+
+
+def simple_visual(name: str, pose: str, size: str, color: str) -> str:
+    return f"""
+        <visual name="{name}">
+          <pose>{pose}</pose>
+          <geometry><box><size>{size}</size></box></geometry>
+          <material><ambient>{color}</ambient><diffuse>{color}</diffuse></material>
+        </visual>"""
+
+
 def marker_cells(marker_id: int, grid: int = 6) -> list[list[int]]:
     size = 600
     marker = np.zeros((size, size), dtype=np.uint8)
@@ -365,34 +386,38 @@ def task_models() -> str:
     {box_model("trash_label_plate", "0 1.02 0.05 0 0 0", "0.58 0.26 0.035", "0.92 0.92 0.88 1", False)}
     <model name="trash_bin_models">
       <static>true</static>
-      <pose>0 1.10 0.16 0 0 0</pose>
+      <pose>0 1.08 0.20 0 0 0</pose>
       <link name="link">
-        <visual name="kitchen"><pose>-0.27 0 0 0 0 0</pose><geometry><box><size>0.16 0.16 0.32</size></box></geometry><material><ambient>0.05 0.65 0.15 1</ambient><diffuse>0.05 0.65 0.15 1</diffuse></material></visual>
-        <visual name="recyclable"><pose>-0.09 0 0 0 0 0</pose><geometry><box><size>0.16 0.16 0.32</size></box></geometry><material><ambient>0.05 0.25 0.85 1</ambient><diffuse>0.05 0.25 0.85 1</diffuse></material></visual>
-        <visual name="hazardous"><pose>0.09 0 0 0 0 0</pose><geometry><box><size>0.16 0.16 0.32</size></box></geometry><material><ambient>0.75 0.05 0.05 1</ambient><diffuse>0.75 0.05 0.05 1</diffuse></material></visual>
-        <visual name="other"><pose>0.27 0 0 0 0 0</pose><geometry><box><size>0.16 0.16 0.32</size></box></geometry><material><ambient>0.62 0.12 0.85 1</ambient><diffuse>0.62 0.12 0.85 1</diffuse></material></visual>
+        {simple_visual("trash_real_photo_base", "0 0 -0.175 0 0 0", "0.82 0.18 0.030", "0.16 0.18 0.17 1")}
+        {textured_visual("kitchen_photo_billboard", "-0.30 0 0 0 0 0", "0.17 0.018 0.34", "kitchen_bin.jpg")}
+        {textured_visual("recyclable_photo_billboard", "-0.10 0 0 0 0 0", "0.17 0.018 0.34", "recyclable_bin.jpg")}
+        {textured_visual("hazardous_photo_billboard", "0.10 0 0 0 0 0", "0.17 0.018 0.34", "hazardous_bin.jpg")}
+        {textured_visual("other_photo_billboard", "0.30 0 0 0 0 0", "0.17 0.018 0.34", "other_bin.jpg")}
       </link>
     </model>
 
     {box_model("people_label_plate", "-1.03 0 0.05 0 0 1.5708", "0.58 0.26 0.035", "0.92 0.92 0.88 1", False)}
     <model name="people_models">
       <static>true</static>
-      <pose>-1.08 0 0.3 0 0 0</pose>
+      <pose>-1.08 0 0.32 0 0 0</pose>
       <link name="link">
-        <visual name="adult"><pose>0 0.22 0 0 0 0</pose><geometry><cylinder><radius>0.075</radius><length>0.60</length></cylinder></geometry><material><ambient>0.00 0.78 0.82 1</ambient><diffuse>0.00 0.78 0.82 1</diffuse></material></visual>
-        <visual name="old_person"><pose>0 0 0 0 0 0</pose><geometry><cylinder><radius>0.075</radius><length>0.55</length></cylinder></geometry><material><ambient>0.95 0.78 0.10 1</ambient><diffuse>0.95 0.78 0.10 1</diffuse></material></visual>
-        <visual name="child"><pose>0 -0.22 -0.08 0 0 0</pose><geometry><cylinder><radius>0.065</radius><length>0.42</length></cylinder></geometry><material><ambient>0.95 0.08 0.78 1</ambient><diffuse>0.95 0.08 0.78 1</diffuse></material></visual>
+        {simple_visual("people_real_photo_base", "0 0 -0.300 0 0 0", "0.040 0.72 0.030", "0.15 0.18 0.20 1")}
+        {textured_visual("medical_rescue_photo_billboard", "0 -0.20 0 0 0 0", "0.018 0.24 0.60", "medical_rescue_person.jpg")}
+        {textured_visual("normal_rescue_photo_billboard_a", "0 0.04 -0.02 0 0 0", "0.018 0.24 0.56", "normal_rescue_person.jpg")}
+        {textured_visual("normal_rescue_photo_billboard_b", "0 0.28 -0.08 0 0 0", "0.018 0.22 0.44", "normal_rescue_person.jpg")}
       </link>
     </model>
 
     {box_model("building_label_plate", "0 -1.02 0.05 0 0 0", "0.58 0.26 0.035", "0.92 0.92 0.88 1", False)}
     <model name="building_models">
       <static>true</static>
-      <pose>0 -1.08 0.35 0 0 0</pose>
+      <pose>0 -1.08 0.38 0 0 0</pose>
       <link name="link">
-        <visual name="building_a"><pose>-0.23 0 0 0 0 0</pose><geometry><box><size>0.24 0.22 0.70</size></box></geometry><material><ambient>0.55 0.55 0.58 1</ambient><diffuse>0.55 0.55 0.58 1</diffuse></material></visual>
-        <visual name="building_b"><pose>0.20 0 0.08 0 0 0</pose><geometry><box><size>0.30 0.22 0.86</size></box></geometry><material><ambient>0.78 0.36 0.16 1</ambient><diffuse>0.78 0.36 0.16 1</diffuse></material></visual>
-        <visual name="fire_sign"><pose>0.20 -0.12 0.18 0 0 0</pose><geometry><box><size>0.18 0.035 0.20</size></box></geometry><material><ambient>1.0 0.38 0.0 1</ambient><diffuse>1.0 0.38 0.0 1</diffuse></material></visual>
+        {simple_visual("building_real_photo_base", "0 0 -0.365 0 0 0", "0.92 0.18 0.030", "0.20 0.18 0.16 1")}
+        {textured_visual("collapse_building_photo_billboard", "-0.33 0 -0.02 0 0 0", "0.22 0.018 0.64", "collapse_building.jpg")}
+        {textured_visual("fire_building_photo_billboard", "-0.11 0 0.06 0 0 0", "0.22 0.018 0.80", "fire_building.jpg")}
+        {textured_visual("toxic_gas_building_photo_billboard", "0.11 0 0.03 0 0 0", "0.22 0.018 0.74", "toxic_gas_building.jpg")}
+        {textured_visual("power_failure_building_photo_billboard", "0.33 0 0.00 0 0 0", "0.22 0.018 0.70", "power_failure_building.jpg")}
       </link>
     </model>
 
