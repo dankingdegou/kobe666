@@ -293,13 +293,13 @@ def task_models() -> str:
     {box_model("trash_label_plate", "0 0.58 0.05 0 0 0", "0.58 0.26 0.035", "0.92 0.92 0.88 1", False)}
     <model name="trash_bin_models">
       <static>true</static>
-      <pose>0 0.62 0.20 0 0 0</pose>
+      <pose>0 0.62 0.28 0 0 0</pose>
       <link name="link">
-        {simple_visual("trash_real_photo_base", "0 0 -0.175 0 0 0", "0.70 0.18 0.030", "0.16 0.18 0.17 1")}
-        {billboard_visual("kitchen_photo_billboard", "-0.16 0 0.08 0 0 0", 0.28, "kitchen_bin.jpg")}
-        {billboard_visual("recyclable_photo_billboard", "0.16 0 0.08 0 0 0", 0.28, "recyclable_bin.jpg")}
-        {billboard_visual("hazardous_photo_billboard", "-0.16 0 -0.22 0 0 0", 0.28, "hazardous_bin.jpg")}
-        {billboard_visual("other_photo_billboard", "0.16 0 -0.22 0 0 0", 0.28, "other_bin.jpg")}
+        {simple_visual("trash_real_photo_base", "0 0 -0.255 0 0 0", "0.72 0.18 0.030", "0.16 0.18 0.17 1")}
+        {billboard_visual("kitchen_photo_billboard", "-0.15 0 0.09 0 0 0", 0.26, "kitchen_bin.jpg")}
+        {billboard_visual("recyclable_photo_billboard", "0.15 0 0.09 0 0 0", 0.26, "recyclable_bin.jpg")}
+        {billboard_visual("hazardous_photo_billboard", "-0.15 0 -0.19 0 0 0", 0.26, "hazardous_bin.jpg")}
+        {billboard_visual("other_photo_billboard", "0.15 0 -0.19 0 0 0", 0.26, "other_bin.jpg")}
       </link>
     </model>
 
@@ -309,10 +309,10 @@ def task_models() -> str:
       <pose>-0.82 0 0.32 0 0 0</pose>
       <link name="link">
         {simple_visual("people_real_photo_base", "0 0 -0.220 0 0 0", "0.040 1.36 0.030", "0.15 0.18 0.20 1")}
-        {textured_visual("medical_rescue_photo_billboard_a", "0 -0.51 -0.08 0 0 0", "0.018 0.300 0.400", "medical_rescue_person.jpg")}
-        {textured_visual("normal_rescue_photo_billboard_a", "0 -0.17 -0.08 0 0 0", "0.018 0.300 0.400", "normal_rescue_person.jpg")}
-        {textured_visual("medical_rescue_photo_billboard_b", "0 0.17 -0.08 0 0 0", "0.018 0.300 0.400", "medical_rescue_person.jpg")}
-        {textured_visual("normal_rescue_photo_billboard_b", "0 0.51 -0.08 0 0 0", "0.018 0.300 0.400", "normal_rescue_person.jpg")}
+        {textured_visual("medical_rescue_photo_billboard_a", "0 -0.51 -0.08 0 0 0", "0.018 0.300 0.400", "medical_rescue_person_1.jpg")}
+        {textured_visual("normal_rescue_photo_billboard_a", "0 -0.17 -0.08 0 0 0", "0.018 0.300 0.400", "normal_rescue_person_1.jpg")}
+        {textured_visual("medical_rescue_photo_billboard_b", "0 0.17 -0.08 0 0 0", "0.018 0.300 0.400", "medical_rescue_person_2.jpg")}
+        {textured_visual("normal_rescue_photo_billboard_b", "0 0.51 -0.08 0 0 0", "0.018 0.300 0.400", "normal_rescue_person_2.jpg")}
       </link>
     </model>
 
