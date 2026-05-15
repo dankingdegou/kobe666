@@ -27,6 +27,7 @@ class ResultReporterNode(Node):
         zone_map_file = self.get_parameter("zone_map_file").get_parameter_value().string_value
         self.zone_map = self._load_zone_map(zone_map_file)
         self.latest_payload = None
+        self.payload_memory = []
         self.detection_memory = {}
         self.last_triggered_zone = None
 
@@ -61,6 +62,8 @@ class ResultReporterNode(Node):
             return
         self.latest_payload = payload
         now_ns = self.get_clock().now().nanoseconds
+        self.payload_memory.append((now_ns, payload))
+        self._expire_payload_memory(now_ns)
         for item in payload.get("detections", []):
             marker_id = item.get("marker_id")
             if marker_id is None:
@@ -82,7 +85,9 @@ class ResultReporterNode(Node):
             return
 
         zone_cfg = self.zone_map.get(zone_name, {})
-        filtered = self._filter_recent_memory(zone_cfg)
+        filtered = self._best_recent_detections(zone_cfg)
+        if not filtered:
+            filtered = self._filter_recent_memory(zone_cfg)
         if not filtered and self.latest_payload is not None:
             filtered = self._filter_payload(self.latest_payload, zone_cfg)
         if not filtered:
@@ -126,6 +131,55 @@ class ResultReporterNode(Node):
                 continue
             detections.append(item)
         return detections
+
+    def _expire_payload_memory(self, now_ns):
+        window_ns = int(self.memory_window_sec * 1e9)
+        self.payload_memory = [
+            (seen_ns, payload)
+            for seen_ns, payload in self.payload_memory
+            if now_ns - seen_ns <= window_ns
+        ]
+
+    def _best_recent_detections(self, zone_cfg):
+        now_ns = self.get_clock().now().nanoseconds
+        self._expire_payload_memory(now_ns)
+        expected_ids = [int(marker_id) for marker_id in zone_cfg.get("fallback_marker_ids", [])]
+        if not expected_ids:
+            expected_ids = [int(marker_id) for marker_id in zone_cfg.get("allowed_marker_ids", [])]
+        best_by_marker = {}
+        for seen_ns, payload in self.payload_memory:
+            filtered = self._filter_payload(payload, zone_cfg)
+            self._remember_best_detections(best_by_marker, filtered, seen_ns, expected_ids)
+        self._remember_best_detections(
+            best_by_marker,
+            [item for _seen_ns, item in self.detection_memory.values()],
+            now_ns,
+            expected_ids,
+        )
+        if expected_ids:
+            return [
+                best_by_marker[marker_id][1]
+                for marker_id in expected_ids
+                if marker_id in best_by_marker
+            ]
+        return [entry[1] for _marker_id, entry in sorted(best_by_marker.items())]
+
+    def _remember_best_detections(self, best_by_marker, detections, seen_ns, expected_ids):
+        expected_set = set(expected_ids)
+        for item in detections:
+            marker_id = item.get("marker_id")
+            if marker_id is None:
+                continue
+            marker_id = int(marker_id)
+            if expected_set and marker_id not in expected_set:
+                continue
+            confidence = float(item.get("confidence", 0.0))
+            score = (self._source_priority(item), confidence, seen_ns)
+            current = best_by_marker.get(marker_id)
+            if current is None or score > current[0]:
+                copied = dict(item)
+                copied["marker_id"] = marker_id
+                best_by_marker[marker_id] = (score, copied)
 
     def _filter_recent_memory(self, zone_cfg):
         allowed_groups = set(zone_cfg.get("groups", []))

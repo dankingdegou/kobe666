@@ -236,6 +236,20 @@ def textured_plane(name: str, pose: str, size: str, texture: str) -> str:
     </model>"""
 
 
+def plane_model(name: str, pose: str, size: str, color: str) -> str:
+    return f"""
+    <model name="{name}">
+      <static>true</static>
+      <pose>{pose}</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><plane><size>{size}</size></plane></geometry>
+          <material><ambient>{color}</ambient><diffuse>{color}</diffuse></material>
+        </visual>
+      </link>
+    </model>"""
+
+
 def textured_visual(name: str, pose: str, size: str, texture: str) -> str:
     return f"""
         <visual name="{name}">
@@ -246,6 +260,11 @@ def textured_visual(name: str, pose: str, size: str, texture: str) -> str:
             <pbr><metal><albedo_map>../materials/textures/{texture}</albedo_map></metal></pbr>
           </material>
         </visual>"""
+
+
+def billboard_visual(name: str, pose: str, height: float, texture: str, thickness: float = 0.018) -> str:
+    width = height * 0.75
+    return textured_visual(name, pose, f"{width:.3f} {thickness:.3f} {height:.3f}", texture)
 
 
 def simple_visual(name: str, pose: str, size: str, color: str) -> str:
@@ -370,12 +389,11 @@ def crosswalk_models() -> str:
         for index in range(6):
             x = 1.52 + index * 0.08
             bars.append(
-                box_model(
+                plane_model(
                     f"right_crosswalk_{group}_{index}",
-                    f"{x:.3f} {y:.3f} 0.032 0 0 0",
-                    "0.045 0.34 0.014",
+                    f"{x:.3f} {y:.3f} 0.0115 0 0 0",
+                    "0.045 0.34",
                     "0.96 0.96 0.90 1",
-                    collision=False,
                 )
             )
     return "\n".join(bars)
@@ -388,11 +406,11 @@ def task_models() -> str:
       <static>true</static>
       <pose>0 1.08 0.20 0 0 0</pose>
       <link name="link">
-        {simple_visual("trash_real_photo_base", "0 0 -0.175 0 0 0", "0.82 0.18 0.030", "0.16 0.18 0.17 1")}
-        {textured_visual("kitchen_photo_billboard", "-0.30 0 0 0 0 0", "0.17 0.018 0.34", "kitchen_bin.jpg")}
-        {textured_visual("recyclable_photo_billboard", "-0.10 0 0 0 0 0", "0.17 0.018 0.34", "recyclable_bin.jpg")}
-        {textured_visual("hazardous_photo_billboard", "0.10 0 0 0 0 0", "0.17 0.018 0.34", "hazardous_bin.jpg")}
-        {textured_visual("other_photo_billboard", "0.30 0 0 0 0 0", "0.17 0.018 0.34", "other_bin.jpg")}
+        {simple_visual("trash_real_photo_base", "0 0 -0.175 0 0 0", "1.18 0.18 0.030", "0.16 0.18 0.17 1")}
+        {billboard_visual("kitchen_photo_billboard", "-0.48 0 0 0 0 0", 0.34, "kitchen_bin.jpg")}
+        {billboard_visual("recyclable_photo_billboard", "-0.16 0 0 0 0 0", 0.34, "recyclable_bin.jpg")}
+        {billboard_visual("hazardous_photo_billboard", "0.16 0 0 0 0 0", 0.34, "hazardous_bin.jpg")}
+        {billboard_visual("other_photo_billboard", "0.48 0 0 0 0 0", 0.34, "other_bin.jpg")}
       </link>
     </model>
 
@@ -401,10 +419,9 @@ def task_models() -> str:
       <static>true</static>
       <pose>-1.08 0 0.32 0 0 0</pose>
       <link name="link">
-        {simple_visual("people_real_photo_base", "0 0 -0.300 0 0 0", "0.040 0.72 0.030", "0.15 0.18 0.20 1")}
-        {textured_visual("medical_rescue_photo_billboard", "0 -0.20 0 0 0 0", "0.018 0.24 0.60", "medical_rescue_person.jpg")}
-        {textured_visual("normal_rescue_photo_billboard_a", "0 0.04 -0.02 0 0 0", "0.018 0.24 0.56", "normal_rescue_person.jpg")}
-        {textured_visual("normal_rescue_photo_billboard_b", "0 0.28 -0.08 0 0 0", "0.018 0.22 0.44", "normal_rescue_person.jpg")}
+        {simple_visual("people_real_photo_base", "0 0 -0.300 0 0 0", "0.040 1.02 0.030", "0.15 0.18 0.20 1")}
+        {textured_visual("medical_rescue_photo_billboard", "0 -0.36 0 0 0 0", "0.018 0.450 0.600", "medical_rescue_person.jpg")}
+        {textured_visual("normal_rescue_photo_billboard_a", "0 0.36 -0.02 0 0 0", "0.018 0.420 0.560", "normal_rescue_person.jpg")}
       </link>
     </model>
 
@@ -413,11 +430,11 @@ def task_models() -> str:
       <static>true</static>
       <pose>0 -1.08 0.38 0 0 0</pose>
       <link name="link">
-        {simple_visual("building_real_photo_base", "0 0 -0.365 0 0 0", "0.92 0.18 0.030", "0.20 0.18 0.16 1")}
-        {textured_visual("collapse_building_photo_billboard", "-0.33 0 -0.02 0 0 0", "0.22 0.018 0.64", "collapse_building.jpg")}
-        {textured_visual("fire_building_photo_billboard", "-0.11 0 0.06 0 0 0", "0.22 0.018 0.80", "fire_building.jpg")}
-        {textured_visual("toxic_gas_building_photo_billboard", "0.11 0 0.03 0 0 0", "0.22 0.018 0.74", "toxic_gas_building.jpg")}
-        {textured_visual("power_failure_building_photo_billboard", "0.33 0 0.00 0 0 0", "0.22 0.018 0.70", "power_failure_building.jpg")}
+        {simple_visual("building_real_photo_base", "0 0 -0.365 0 0 0", "1.50 0.18 0.030", "0.20 0.18 0.16 1")}
+        {billboard_visual("collapse_building_photo_billboard", "-0.60 0 -0.02 0 0 0", 0.64, "collapse_building.jpg")}
+        {billboard_visual("fire_building_photo_billboard", "-0.20 0 0.06 0 0 0", 0.80, "fire_building.jpg")}
+        {billboard_visual("toxic_gas_building_photo_billboard", "0.22 0 0.03 0 0 0", 0.74, "toxic_gas_building.jpg")}
+        {billboard_visual("power_failure_building_photo_billboard", "0.62 0 0.00 0 0 0", 0.70, "power_failure_building.jpg")}
       </link>
     </model>
 

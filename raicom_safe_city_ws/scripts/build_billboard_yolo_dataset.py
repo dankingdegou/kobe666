@@ -116,22 +116,22 @@ def make_scene(textures, rng: random.Random):
 
     if scene_name == "trash":
         y = rng.randint(168, 235)
-        box_w = rng.randint(82, 112)
         box_h = rng.randint(145, 190)
+        box_w = int(box_h * 0.75)
         gap = rng.randint(8, 18)
         total_w = len(class_ids) * box_w + (len(class_ids) - 1) * gap
         x0 = rng.randint(60, max(61, 640 - total_w - 60))
     elif scene_name == "people":
         y = rng.randint(115, 195)
-        box_w = rng.randint(86, 122)
         box_h = rng.randint(190, 265)
+        box_w = int(box_h * 0.75)
         gap = rng.randint(14, 28)
         total_w = len(class_ids) * box_w + (len(class_ids) - 1) * gap
         x0 = rng.randint(70, max(71, 640 - total_w - 70))
     else:
         y = rng.randint(88, 165)
-        box_w = rng.randint(92, 128)
         box_h = rng.randint(230, 330)
+        box_w = int(box_h * 0.75)
         gap = rng.randint(8, 18)
         total_w = len(class_ids) * box_w + (len(class_ids) - 1) * gap
         x0 = rng.randint(35, max(36, 640 - total_w - 35))
@@ -139,7 +139,8 @@ def make_scene(textures, rng: random.Random):
     for index, class_id in enumerate(class_ids):
         x = x0 + index * (box_w + gap) + rng.randint(-4, 4)
         h = max(48, int(box_h * rng.uniform(0.86, 1.08)))
-        w = max(36, int(box_w * rng.uniform(0.88, 1.08)))
+        w = max(36, int(h * 0.75))
+        x = min(640 - w - 4, max(4, x))
         y_i = min(460 - h, max(8, y + rng.randint(-12, 12)))
         paste_billboard(canvas, textures[class_id], x, y_i, w, h, rng)
         labels.append(label_line(class_id, x, y_i, w, h))
