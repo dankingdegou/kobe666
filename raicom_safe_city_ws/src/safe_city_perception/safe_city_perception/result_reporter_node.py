@@ -146,26 +146,35 @@ class ResultReporterNode(Node):
         expected_ids = [int(marker_id) for marker_id in zone_cfg.get("fallback_marker_ids", [])]
         if not expected_ids:
             expected_ids = [int(marker_id) for marker_id in zone_cfg.get("allowed_marker_ids", [])]
+        expected_counts = self._expected_counts(zone_cfg, expected_ids)
         best_by_marker = {}
         for seen_ns, payload in self.payload_memory:
             filtered = self._filter_payload(payload, zone_cfg)
-            self._remember_best_detections(best_by_marker, filtered, seen_ns, expected_ids)
+            self._remember_best_detections(best_by_marker, filtered, seen_ns, expected_ids, expected_counts)
         self._remember_best_detections(
             best_by_marker,
             [item for _seen_ns, item in self.detection_memory.values()],
             now_ns,
             expected_ids,
+            expected_counts,
         )
         if expected_ids:
-            return [
-                best_by_marker[marker_id][1]
-                for marker_id in expected_ids
-                if marker_id in best_by_marker
-            ]
+            detections = []
+            for marker_id in expected_ids:
+                detections.extend(item for _score, item in best_by_marker.get(marker_id, []))
+            return detections
         return [entry[1] for _marker_id, entry in sorted(best_by_marker.items())]
 
-    def _remember_best_detections(self, best_by_marker, detections, seen_ns, expected_ids):
+    def _expected_counts(self, zone_cfg, expected_ids):
+        configured = zone_cfg.get("expected_counts", {}) or {}
+        counts = {int(marker_id): int(count) for marker_id, count in configured.items()}
+        for marker_id in expected_ids:
+            counts.setdefault(int(marker_id), 1)
+        return counts
+
+    def _remember_best_detections(self, best_by_marker, detections, seen_ns, expected_ids, expected_counts):
         expected_set = set(expected_ids)
+        frame_seen = {}
         for item in detections:
             marker_id = item.get("marker_id")
             if marker_id is None:
@@ -173,13 +182,18 @@ class ResultReporterNode(Node):
             marker_id = int(marker_id)
             if expected_set and marker_id not in expected_set:
                 continue
+            index = frame_seen.get(marker_id, 0)
+            frame_seen[marker_id] = index + 1
+            if index >= expected_counts.get(marker_id, 1):
+                continue
             confidence = float(item.get("confidence", 0.0))
             score = (self._source_priority(item), confidence, seen_ns)
-            current = best_by_marker.get(marker_id)
-            if current is None or score > current[0]:
-                copied = dict(item)
-                copied["marker_id"] = marker_id
-                best_by_marker[marker_id] = (score, copied)
+            copied = dict(item)
+            copied["marker_id"] = marker_id
+            candidates = best_by_marker.setdefault(marker_id, [])
+            candidates.append((score, copied))
+            candidates.sort(key=lambda entry: entry[0], reverse=True)
+            del candidates[expected_counts.get(marker_id, 1) :]
 
     def _filter_recent_memory(self, zone_cfg):
         allowed_groups = set(zone_cfg.get("groups", []))

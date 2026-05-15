@@ -308,9 +308,11 @@ def task_models() -> str:
       <static>true</static>
       <pose>-1.08 0 0.32 0 0 0</pose>
       <link name="link">
-        {simple_visual("people_real_photo_base", "0 0 -0.300 0 0 0", "0.040 1.02 0.030", "0.15 0.18 0.20 1")}
-        {textured_visual("medical_rescue_photo_billboard", "0 -0.36 0 0 0 0", "0.018 0.450 0.600", "medical_rescue_person.jpg")}
-        {textured_visual("normal_rescue_photo_billboard_a", "0 0.36 -0.02 0 0 0", "0.018 0.420 0.560", "normal_rescue_person.jpg")}
+        {simple_visual("people_real_photo_base", "0 0 -0.220 0 0 0", "0.040 1.36 0.030", "0.15 0.18 0.20 1")}
+        {textured_visual("medical_rescue_photo_billboard_a", "0 -0.51 -0.08 0 0 0", "0.018 0.300 0.400", "medical_rescue_person.jpg")}
+        {textured_visual("normal_rescue_photo_billboard_a", "0 -0.17 -0.08 0 0 0", "0.018 0.300 0.400", "normal_rescue_person.jpg")}
+        {textured_visual("medical_rescue_photo_billboard_b", "0 0.17 -0.08 0 0 0", "0.018 0.300 0.400", "medical_rescue_person.jpg")}
+        {textured_visual("normal_rescue_photo_billboard_b", "0 0.51 -0.08 0 0 0", "0.018 0.300 0.400", "normal_rescue_person.jpg")}
       </link>
     </model>
 
@@ -320,10 +322,10 @@ def task_models() -> str:
       <pose>0 -1.08 0.38 0 0 0</pose>
       <link name="link">
         {simple_visual("building_real_photo_base", "0 0 -0.365 0 0 0", "1.50 0.18 0.030", "0.20 0.18 0.16 1")}
-        {billboard_visual("collapse_building_photo_billboard", "-0.60 0 -0.02 0 0 0", 0.64, "collapse_building.jpg")}
-        {billboard_visual("fire_building_photo_billboard", "-0.20 0 0.06 0 0 0", 0.80, "fire_building.jpg")}
-        {billboard_visual("toxic_gas_building_photo_billboard", "0.22 0 0.03 0 0 0", 0.74, "toxic_gas_building.jpg")}
-        {billboard_visual("power_failure_building_photo_billboard", "0.62 0 0.00 0 0 0", 0.70, "power_failure_building.jpg")}
+        {billboard_visual("collapse_building_photo_billboard", "-0.60 0 -0.12 0 0 0", 0.38, "collapse_building.jpg")}
+        {billboard_visual("fire_building_photo_billboard", "-0.20 0 -0.09 0 0 0", 0.44, "fire_building.jpg")}
+        {billboard_visual("toxic_gas_building_photo_billboard", "0.20 0 -0.10 0 0 0", 0.42, "toxic_gas_building.jpg")}
+        {billboard_visual("power_failure_building_photo_billboard", "0.60 0 -0.11 0 0 0", 0.40, "power_failure_building.jpg")}
       </link>
     </model>
 
