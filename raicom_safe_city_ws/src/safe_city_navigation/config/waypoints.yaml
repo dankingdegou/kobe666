@@ -13,14 +13,26 @@ waypoints:
         x: -1.35
         y: 0.0
         yaw: 0.0
+      - name: left_top_entry
+        x: -1.35
+        y: 0.80
+        yaw: 1.57
       - name: left_top_curve
         x: -1.20
         y: 1.20
         yaw: 0.70
+      - name: top_left_straight
+        x: -0.70
+        y: 1.35
+        yaw: 0.0
       - name: trash_zone
         x: 0.0
         y: 1.35
         yaw: -1.57
+      - name: top_right_straight
+        x: 0.70
+        y: 1.35
+        yaw: 0.0
       - name: right_top_curve
         x: 1.20
         y: 1.20
@@ -37,10 +49,18 @@ waypoints:
         x: 1.20
         y: -1.20
         yaw: -2.35
+      - name: bottom_right_straight
+        x: 0.70
+        y: -1.35
+        yaw: 3.14
       - name: building_zone
         x: 0.0
         y: -1.35
         yaw: 1.57
+      - name: bottom_left_straight
+        x: -0.70
+        y: -1.35
+        yaw: 3.14
       - name: left_bottom_curve
         x: -1.20
         y: -1.20

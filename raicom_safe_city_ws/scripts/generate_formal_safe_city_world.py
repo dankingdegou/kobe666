@@ -290,23 +290,23 @@ def crosswalk_models() -> str:
 
 def task_models() -> str:
     return f"""
-    {box_model("trash_label_plate", "0 1.02 0.05 0 0 0", "0.58 0.26 0.035", "0.92 0.92 0.88 1", False)}
+    {box_model("trash_label_plate", "0 0.58 0.05 0 0 0", "0.58 0.26 0.035", "0.92 0.92 0.88 1", False)}
     <model name="trash_bin_models">
       <static>true</static>
-      <pose>0 1.08 0.20 0 0 0</pose>
+      <pose>0 0.62 0.20 0 0 0</pose>
       <link name="link">
-        {simple_visual("trash_real_photo_base", "0 0 -0.175 0 0 0", "1.18 0.18 0.030", "0.16 0.18 0.17 1")}
-        {billboard_visual("kitchen_photo_billboard", "-0.48 0 0 0 0 0", 0.34, "kitchen_bin.jpg")}
-        {billboard_visual("recyclable_photo_billboard", "-0.16 0 0 0 0 0", 0.34, "recyclable_bin.jpg")}
-        {billboard_visual("hazardous_photo_billboard", "0.16 0 0 0 0 0", 0.34, "hazardous_bin.jpg")}
-        {billboard_visual("other_photo_billboard", "0.48 0 0 0 0 0", 0.34, "other_bin.jpg")}
+        {simple_visual("trash_real_photo_base", "0 0 -0.175 0 0 0", "0.70 0.18 0.030", "0.16 0.18 0.17 1")}
+        {billboard_visual("kitchen_photo_billboard", "-0.16 0 0.08 0 0 0", 0.28, "kitchen_bin.jpg")}
+        {billboard_visual("recyclable_photo_billboard", "0.16 0 0.08 0 0 0", 0.28, "recyclable_bin.jpg")}
+        {billboard_visual("hazardous_photo_billboard", "-0.16 0 -0.22 0 0 0", 0.28, "hazardous_bin.jpg")}
+        {billboard_visual("other_photo_billboard", "0.16 0 -0.22 0 0 0", 0.28, "other_bin.jpg")}
       </link>
     </model>
 
-    {box_model("people_label_plate", "-1.03 0 0.05 0 0 1.5708", "0.58 0.26 0.035", "0.92 0.92 0.88 1", False)}
+    {box_model("people_label_plate", "-0.78 0 0.05 0 0 1.5708", "0.58 0.26 0.035", "0.92 0.92 0.88 1", False)}
     <model name="people_models">
       <static>true</static>
-      <pose>-1.08 0 0.32 0 0 0</pose>
+      <pose>-0.82 0 0.32 0 0 0</pose>
       <link name="link">
         {simple_visual("people_real_photo_base", "0 0 -0.220 0 0 0", "0.040 1.36 0.030", "0.15 0.18 0.20 1")}
         {textured_visual("medical_rescue_photo_billboard_a", "0 -0.51 -0.08 0 0 0", "0.018 0.300 0.400", "medical_rescue_person.jpg")}
@@ -316,10 +316,10 @@ def task_models() -> str:
       </link>
     </model>
 
-    {box_model("building_label_plate", "0 -1.02 0.05 0 0 0", "0.58 0.26 0.035", "0.92 0.92 0.88 1", False)}
+    {box_model("building_label_plate", "0 -0.78 0.05 0 0 0", "0.58 0.26 0.035", "0.92 0.92 0.88 1", False)}
     <model name="building_models">
       <static>true</static>
-      <pose>0 -1.08 0.38 0 0 0</pose>
+      <pose>0 -0.82 0.38 0 0 0</pose>
       <link name="link">
         {simple_visual("building_real_photo_base", "0 0 -0.365 0 0 0", "1.50 0.18 0.030", "0.20 0.18 0.16 1")}
         {billboard_visual("collapse_building_photo_billboard", "-0.60 0 -0.12 0 0 0", 0.38, "collapse_building.jpg")}

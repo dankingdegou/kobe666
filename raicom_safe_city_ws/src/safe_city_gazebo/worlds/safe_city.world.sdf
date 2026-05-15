@@ -2694,7 +2694,7 @@
     
     <model name="trash_label_plate">
       <static>true</static>
-      <pose>0 1.02 0.05 0 0 0</pose>
+      <pose>0 0.58 0.05 0 0 0</pose>
       <link name="link">
         <visual name="visual">
           <geometry><box><size>0.58 0.26 0.035</size></box></geometry>
@@ -2704,18 +2704,18 @@
     </model>
     <model name="trash_bin_models">
       <static>true</static>
-      <pose>0 1.08 0.20 0 0 0</pose>
+      <pose>0 0.62 0.20 0 0 0</pose>
       <link name="link">
         
         <visual name="trash_real_photo_base">
           <pose>0 0 -0.175 0 0 0</pose>
-          <geometry><box><size>1.18 0.18 0.030</size></box></geometry>
+          <geometry><box><size>0.70 0.18 0.030</size></box></geometry>
           <material><ambient>0.16 0.18 0.17 1</ambient><diffuse>0.16 0.18 0.17 1</diffuse></material>
         </visual>
         
         <visual name="kitchen_photo_billboard">
-          <pose>-0.48 0 0 0 0 0</pose>
-          <geometry><box><size>0.255 0.018 0.340</size></box></geometry>
+          <pose>-0.16 0 0.08 0 0 0</pose>
+          <geometry><box><size>0.210 0.018 0.280</size></box></geometry>
           <material>
             <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
             <pbr><metal><albedo_map>../materials/textures/kitchen_bin.jpg</albedo_map></metal></pbr>
@@ -2723,8 +2723,8 @@
         </visual>
         
         <visual name="recyclable_photo_billboard">
-          <pose>-0.16 0 0 0 0 0</pose>
-          <geometry><box><size>0.255 0.018 0.340</size></box></geometry>
+          <pose>0.16 0 0.08 0 0 0</pose>
+          <geometry><box><size>0.210 0.018 0.280</size></box></geometry>
           <material>
             <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
             <pbr><metal><albedo_map>../materials/textures/recyclable_bin.jpg</albedo_map></metal></pbr>
@@ -2732,8 +2732,8 @@
         </visual>
         
         <visual name="hazardous_photo_billboard">
-          <pose>0.16 0 0 0 0 0</pose>
-          <geometry><box><size>0.255 0.018 0.340</size></box></geometry>
+          <pose>-0.16 0 -0.22 0 0 0</pose>
+          <geometry><box><size>0.210 0.018 0.280</size></box></geometry>
           <material>
             <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
             <pbr><metal><albedo_map>../materials/textures/hazardous_bin.jpg</albedo_map></metal></pbr>
@@ -2741,8 +2741,8 @@
         </visual>
         
         <visual name="other_photo_billboard">
-          <pose>0.48 0 0 0 0 0</pose>
-          <geometry><box><size>0.255 0.018 0.340</size></box></geometry>
+          <pose>0.16 0 -0.22 0 0 0</pose>
+          <geometry><box><size>0.210 0.018 0.280</size></box></geometry>
           <material>
             <ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse>
             <pbr><metal><albedo_map>../materials/textures/other_bin.jpg</albedo_map></metal></pbr>
@@ -2754,7 +2754,7 @@
     
     <model name="people_label_plate">
       <static>true</static>
-      <pose>-1.03 0 0.05 0 0 1.5708</pose>
+      <pose>-0.78 0 0.05 0 0 1.5708</pose>
       <link name="link">
         <visual name="visual">
           <geometry><box><size>0.58 0.26 0.035</size></box></geometry>
@@ -2764,7 +2764,7 @@
     </model>
     <model name="people_models">
       <static>true</static>
-      <pose>-1.08 0 0.32 0 0 0</pose>
+      <pose>-0.82 0 0.32 0 0 0</pose>
       <link name="link">
         
         <visual name="people_real_photo_base">
@@ -2814,7 +2814,7 @@
     
     <model name="building_label_plate">
       <static>true</static>
-      <pose>0 -1.02 0.05 0 0 0</pose>
+      <pose>0 -0.78 0.05 0 0 0</pose>
       <link name="link">
         <visual name="visual">
           <geometry><box><size>0.58 0.26 0.035</size></box></geometry>
@@ -2824,7 +2824,7 @@
     </model>
     <model name="building_models">
       <static>true</static>
-      <pose>0 -1.08 0.38 0 0 0</pose>
+      <pose>0 -0.82 0.38 0 0 0</pose>
       <link name="link">
         
         <visual name="building_real_photo_base">

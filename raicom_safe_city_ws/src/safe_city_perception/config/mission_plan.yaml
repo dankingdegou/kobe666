@@ -13,13 +13,18 @@ mission:
     people_zone:
       - left_lane_entry
     trash_zone:
+      - left_top_entry
       - left_top_curve
+      - top_left_straight
     building_zone:
+      - top_right_straight
       - right_top_curve
       - right_crosswalk_upper
       - right_crosswalk_lower
       - right_bottom_curve
+      - bottom_right_straight
   return_route:
+    - bottom_left_straight
     - left_bottom_curve
     - finish
     - return_zone
