@@ -273,7 +273,20 @@ def simple_visual(name: str, pose: str, size: str, color: str) -> str:
 
 
 def crosswalk_models() -> str:
-    bars = []
+    bars = [
+        plane_model(
+            "right_sidewalk_upper_line",
+            "1.55 0.66 0.0116 0 0 0",
+            "0.48 0.035",
+            "0.02 0.02 0.02 1",
+        ),
+        plane_model(
+            "right_sidewalk_lower_line",
+            "1.55 -0.66 0.0116 0 0 0",
+            "0.48 0.035",
+            "0.02 0.02 0.02 1",
+        ),
+    ]
     for group, y in [("upper", 0.52), ("lower", -0.52)]:
         for index in range(6):
             x = 1.52 + index * 0.08

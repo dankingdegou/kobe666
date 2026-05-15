@@ -2559,6 +2559,28 @@
       </link>
     </model>
     
+    <model name="right_sidewalk_upper_line">
+      <static>true</static>
+      <pose>1.55 0.66 0.0116 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><plane><size>0.48 0.035</size></plane></geometry>
+          <material><ambient>0.02 0.02 0.02 1</ambient><diffuse>0.02 0.02 0.02 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="right_sidewalk_lower_line">
+      <static>true</static>
+      <pose>1.55 -0.66 0.0116 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><plane><size>0.48 0.035</size></plane></geometry>
+          <material><ambient>0.02 0.02 0.02 1</ambient><diffuse>0.02 0.02 0.02 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
     <model name="right_crosswalk_upper_0">
       <static>true</static>
       <pose>1.520 0.520 0.0115 0 0 0</pose>
