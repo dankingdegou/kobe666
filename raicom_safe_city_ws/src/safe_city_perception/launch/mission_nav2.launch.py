@@ -10,7 +10,6 @@ def generate_launch_description():
     perception_share = get_package_share_directory("safe_city_perception")
     navigation_share = get_package_share_directory("safe_city_navigation")
 
-    aruco_map = os.path.join(perception_share, "config", "aruco_map.yaml")
     yolo_config = os.path.join(perception_share, "config", "yolo_classes.yaml")
     zone_map = os.path.join(perception_share, "config", "zone_map.yaml")
     mission_plan = os.path.join(perception_share, "config", "mission_plan.yaml")
@@ -37,15 +36,6 @@ def generate_launch_description():
                     {"model_path": LaunchConfiguration("yolo_model")},
                     {"image_topic": "/camera"},
                     {"publish_every_n_frames": 2},
-                ],
-            ),
-            Node(
-                package="safe_city_perception",
-                executable="aruco_detector_node",
-                output="log",
-                parameters=[
-                    {"aruco_map_file": aruco_map},
-                    {"image_topic": "/camera"},
                 ],
             ),
             Node(

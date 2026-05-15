@@ -7,9 +7,6 @@ import math
 import subprocess
 from pathlib import Path
 
-import cv2
-import numpy as np
-
 
 WORKSPACE = Path(__file__).resolve().parents[1]
 WORLD_PATH = WORKSPACE / "src" / "safe_city_gazebo" / "worlds" / "safe_city.world.sdf"
@@ -23,7 +20,6 @@ INNER_W = 1.90
 INNER_H = 1.90
 INNER_R = 0.42
 TRACK_WIDTH = 0.80
-ARUCO_DICT = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_50)
 
 
 def _model_from_sdf(sdf_text: str) -> str:
@@ -276,113 +272,6 @@ def simple_visual(name: str, pose: str, size: str, color: str) -> str:
         </visual>"""
 
 
-def marker_cells(marker_id: int, grid: int = 6) -> list[list[int]]:
-    size = 600
-    marker = np.zeros((size, size), dtype=np.uint8)
-    if hasattr(cv2.aruco, "generateImageMarker"):
-        cv2.aruco.generateImageMarker(ARUCO_DICT, marker_id, size, marker, 1)
-    else:
-        cv2.aruco.drawMarker(ARUCO_DICT, marker_id, size, marker, 1)
-    cell = size // grid
-    cells = []
-    for row in range(grid):
-        values = []
-        for col in range(grid):
-            patch = marker[row * cell : (row + 1) * cell, col * cell : (col + 1) * cell]
-            values.append(1 if int(patch.mean()) < 128 else 0)
-        cells.append(values)
-    return cells
-
-
-def aruco_geometry_marker(
-    name: str,
-    marker_id: int,
-    center_x: float,
-    center_y: float,
-    center_z: float,
-    face: str,
-    size: float = 0.24,
-) -> str:
-    cell_size = size / 6.0
-    black = "0.0 0.0 0.0 1"
-    white = "1.0 1.0 1.0 1"
-    backing_depth = 0.006
-    tile_depth = 0.012
-    tile_offset = 0.028
-    models = []
-
-    if face in ("pos_y", "neg_y"):
-        y = center_y + (backing_depth / 2.0 if face == "pos_y" else -backing_depth / 2.0)
-        models.append(
-            box_model(
-                f"{name}_white_backing",
-                f"{center_x:.4f} {y:.4f} {center_z:.4f} 0 0 0",
-                f"{size:.4f} {backing_depth:.4f} {size:.4f}",
-                white,
-                False,
-            )
-        )
-        tile_y = center_y + (tile_offset if face == "pos_y" else -tile_offset)
-        for row, values in enumerate(marker_cells(marker_id)):
-            for col, is_black in enumerate(values):
-                if not is_black:
-                    continue
-                x = center_x - size / 2.0 + (col + 0.5) * cell_size
-                z = center_z + size / 2.0 - (row + 0.5) * cell_size
-                models.append(
-                    box_model(
-                        f"{name}_cell_{row}_{col}",
-                        f"{x:.4f} {tile_y:.4f} {z:.4f} 0 0 0",
-                        f"{cell_size:.4f} {tile_depth:.4f} {cell_size:.4f}",
-                        black,
-                        False,
-                    )
-                )
-    elif face in ("pos_x", "neg_x"):
-        x = center_x + (backing_depth / 2.0 if face == "pos_x" else -backing_depth / 2.0)
-        models.append(
-            box_model(
-                f"{name}_white_backing",
-                f"{x:.4f} {center_y:.4f} {center_z:.4f} 0 0 0",
-                f"{backing_depth:.4f} {size:.4f} {size:.4f}",
-                white,
-                False,
-            )
-        )
-        tile_x = center_x + (tile_offset if face == "pos_x" else -tile_offset)
-        for row, values in enumerate(marker_cells(marker_id)):
-            for col, is_black in enumerate(values):
-                if not is_black:
-                    continue
-                y = center_y - size / 2.0 + (col + 0.5) * cell_size
-                z = center_z + size / 2.0 - (row + 0.5) * cell_size
-                models.append(
-                    box_model(
-                        f"{name}_cell_{row}_{col}",
-                        f"{tile_x:.4f} {y:.4f} {z:.4f} 0 0 0",
-                        f"{tile_depth:.4f} {cell_size:.4f} {cell_size:.4f}",
-                        black,
-                        False,
-                    )
-                )
-    else:
-        raise ValueError(f"Unsupported marker face: {face}")
-
-    return "\n".join(models)
-
-
-def aruco_geometry_board(prefix: str, marker_ids, base_x: float, base_y: float, z: float, face: str) -> str:
-    offsets = [-0.27, -0.09, 0.09, 0.27] if len(marker_ids) == 4 else [-0.22, 0.0, 0.22]
-    markers = []
-    for marker_id, offset in zip(marker_ids, offsets):
-        if face in ("pos_y", "neg_y"):
-            x, y = base_x + offset, base_y
-        else:
-            x, y = base_x, base_y + offset
-        markers.append(aruco_geometry_marker(f"{prefix}_{marker_id}", marker_id, x, y, z, face))
-    return "\n".join(markers)
-
-
 def crosswalk_models() -> str:
     bars = []
     for group, y in [("upper", 0.52), ("lower", -0.52)]:
@@ -438,9 +327,6 @@ def task_models() -> str:
       </link>
     </model>
 
-    {aruco_geometry_board("trash_marker", [1, 2, 3, 4], 0.0, 1.17, 0.38, "pos_y")}
-    {aruco_geometry_board("people_marker", [5, 6, 7], -1.17, 0.0, 0.38, "neg_x")}
-    {aruco_geometry_board("building_marker", [8, 9, 10, 11], 0.0, -1.17, 0.38, "neg_y")}
     """
 
 

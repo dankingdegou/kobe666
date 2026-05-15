@@ -15,7 +15,6 @@ def generate_launch_description():
         "launch",
         "camera_sim.launch.py",
     )
-    aruco_map = os.path.join(perception_share, "config", "aruco_map.yaml")
     zone_map = os.path.join(perception_share, "config", "zone_map.yaml")
     mission_plan = os.path.join(perception_share, "config", "mission_plan.yaml")
     waypoints = os.path.join(navigation_share, "config", "waypoints.yaml")
@@ -23,15 +22,6 @@ def generate_launch_description():
     return LaunchDescription(
         [
             IncludeLaunchDescription(PythonLaunchDescriptionSource(camera_sim)),
-            Node(
-                package="safe_city_perception",
-                executable="aruco_detector_node",
-                output="screen",
-                parameters=[
-                    {"aruco_map_file": aruco_map},
-                    {"image_topic": "/camera"},
-                ],
-            ),
             Node(
                 package="safe_city_perception",
                 executable="result_reporter_node",
